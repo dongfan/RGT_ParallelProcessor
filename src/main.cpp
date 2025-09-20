@@ -56,14 +56,17 @@ int main() {
     ParallelProcessor<int> processor(Config::numThreads);
 
     // 추가 기능
+    // 밝기 조정 필터 (Brightness Filter)
     auto brightenedImage = processor.parallel_map(pixelData, [](int pixel) {
         return std::min(255, pixel + 50);
     });
 
+    // 픽셀 값을 문자열로 변환 (Pixel to String Conversion)
     auto pixelStrings = processor.parallel_map(pixelData, [](int pixel) -> std::string {
         return "pixel_" + std::to_string(pixel);
     });
 
+    // 대비 강화 효과 (Contrast Enhancement)
     auto squaredPixels = processor.parallel_map(pixelData, [](int pixel) {
         return pixel * pixel;
     });
@@ -72,7 +75,7 @@ int main() {
 
     std::vector<int> seqResult, parResult;
 
-    // 성능 측정용 적당한 무게의 연산 람다 함수
+    // 복합 수학 필터 (Heavy Compute Filter) - 성능 측정용
     auto heavyComputeFunc = [](int pixel) {
         // 적당한 수학 연산으로 Sequential ~1000ms, Parallel ~250ms 목표
         double result = pixel;
